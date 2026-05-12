@@ -2,7 +2,6 @@
 
 <div align="center">
 
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDl4dDNrZnUwMG5nYmU5Y2xjbDh0MXV6MzM0cXlqdzA3MXkwMzM1NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7TKtnuHOHHUjR38Y/giphy.gif" width="100%" />
 
 <br><br>
 
