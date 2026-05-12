@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin | Sabor de Minas</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8ef;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      width: min(380px, 90%);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.12);
+    }
+
+    h1 {
+      color: #f56600;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #6f5a49;
+      margin-bottom: 22px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 999px;
+      background: #f56600;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #c74600;
+    }
+
+    .error {
+      color: red;
+      margin-top: 12px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-box">
+    <h1>Admin</h1>
+    <p>Entre para acessar o painel da Sabor de Minas.</p>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Senha">
+
+    <button id="loginBtn">Entrar</button>
+
+    <div class="error" id="errorMessage"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://dkajekepsxbgjzaznfgl.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_ph00G7Qw0EOkHF0qZNeRRg_HKycEpfD";
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    document.querySelector("#loginBtn").addEventListener("click", async () => {
+      const email = document.querySelector("#email").value;
+      const password = document.querySelector("#password").value;
+      const errorMessage = document.querySelector("#errorMessage");
+
+      errorMessage.textContent = "";
+
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        errorMessage.textContent = "Email ou senha inválidos.";
+        return;
+      }
+
+      window.location.href = "./admin.html";
+    });
+  </script>
+</body>
+</html>

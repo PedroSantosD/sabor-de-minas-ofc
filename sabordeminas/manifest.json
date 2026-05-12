@@ -1,0 +1,20 @@
+{
+  "name": "Sabor de Minas Admin",
+  "short_name": "Admin Minas",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "background_color": "#fff8ef",
+  "theme_color": "#f56600",
+  "icons": [
+    {
+      "src": "/imagens/sabordeminas.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/imagens/sabordeminas.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

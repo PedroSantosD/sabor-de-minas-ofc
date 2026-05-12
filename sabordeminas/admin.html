@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Sabor de Minas</title>
+  <style>
+    :root{--orange:#f56600;--orange-dark:#c74600;--cream:#fff8ef;--text:#1a120c;--muted:#6f5a49;--line:#f3ddc7;--shadow:0 10px 30px rgba(108,59,18,.12);--sidebar:#1a120c}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--text)}
+    .admin-layout{min-height:100vh;display:grid;grid-template-columns:280px 1fr}.sidebar{background:var(--sidebar);color:white;padding:24px;position:sticky;top:0;height:100vh}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:36px}.brand-icon{width:46px;height:46px;border-radius:14px;background:var(--orange);display:grid;place-items:center;font-size:1.4rem}.brand h2{margin:0;font-size:1.15rem}.brand small{color:#ffd9b2}
+    .nav-link{display:flex;gap:12px;align-items:center;padding:13px 14px;border-radius:14px;color:#ffe8d3;text-decoration:none;font-weight:700;margin-bottom:8px}.nav-link.active,.nav-link:hover{background:rgba(245,102,0,.18);color:white}
+    .logout-btn{width:100%;margin-top:24px;padding:13px;border:0;border-radius:999px;background:var(--orange);color:white;font-weight:900;cursor:pointer}
+    main{padding:28px;overflow-x:hidden}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:26px}.topbar h1{margin:0;font-size:clamp(1.7rem,3vw,2.5rem);letter-spacing:-.04em}.topbar p{margin:6px 0 0;color:var(--muted);font-weight:700}
+    .online-badge{background:white;border:1px solid var(--line);padding:12px 16px;border-radius:999px;box-shadow:var(--shadow);color:var(--orange-dark);font-weight:900;white-space:nowrap}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px}.card,.panel{background:white;padding:22px;border-radius:22px;box-shadow:var(--shadow);border:1px solid rgba(245,102,0,.08)}.card h3{margin:0 0 12px;color:var(--muted);font-size:.95rem}.card strong{font-size:2rem;color:var(--orange);line-height:1}
+    .dashboard-grid{display:grid;grid-template-columns:1.4fr .8fr;gap:22px;margin-bottom:24px}.panel{padding:24px}.panel h2{margin:0 0 18px}.daily-list p{background:#fff4e8;padding:12px 14px;border-radius:14px;margin:0 0 10px;color:var(--muted);font-weight:700}
+    .product-editor{margin-bottom:24px}.editor-grid{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end}select,input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:14px;outline:none;font-size:1rem;background:white}.primary-btn{padding:14px 18px;border:0;border-radius:14px;background:var(--orange);color:white;font-weight:900;cursor:pointer;white-space:nowrap}.primary-btn:hover{background:var(--orange-dark)}
+    .table-wrapper{overflow-x:auto;background:white;border-radius:24px;box-shadow:var(--shadow)}table{width:100%;border-collapse:collapse;min-width:820px}th,td{padding:15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--orange);color:white;font-size:.9rem}.status-select{background:#fff0e3;color:var(--orange-dark);border:1px solid #f3c29c;padding:8px 12px;border-radius:999px;font-weight:bold;outline:none}canvas{max-height:320px}
+    @media(max-width:1000px){.admin-layout{grid-template-columns:1fr}.sidebar{height:auto;position:static}.cards,.dashboard-grid,.editor-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}}@media(max-width:560px){main{padding:18px}.sidebar{padding:18px}.card strong{font-size:1.6rem}}
+  </style>
+  <link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#f56600">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Admin Minas">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-icon">🧀</div><div><h2>Sabor de Minas</h2><small>Painel Admin</small></div></div>
+      <a class="nav-link active" href="#dashboard">📊 Dashboard</a>
+      <a class="nav-link" href="#produtos">📦 Produtos</a>
+      <a class="nav-link" href="#pedidos">🧾 Pedidos</a>
+      <a class="nav-link" href="./index.html">🏠 Ver loja</a>
+      <button class="logout-btn" onclick="logout()">Sair</button>
+    </aside>
+    <main>
+      <section class="topbar" id="dashboard"><div><h1>Dashboard</h1><p>Resumo dos pedidos e desempenho da loja.</p></div><div class="online-badge">● Online</div></section>
+      <section class="cards">
+        <div class="card"><h3>Total de Pedidos</h3><strong id="totalOrders">0</strong></div>
+        <div class="card"><h3>Pedidos Pendentes</h3><strong id="pendingOrders">0</strong></div>
+        <div class="card"><h3>Faturamento Total</h3><strong id="revenue">R$ 0,00</strong></div>
+        <div class="card"><h3>Pedidos Entregues</h3><strong id="deliveredOrders">0</strong></div>
+        <div class="card"><h3>Pedidos Cancelados</h3><strong id="cancelledOrders">0</strong></div>
+        <div class="card"><h3>Produto Mais Vendido</h3><strong id="bestSeller">-</strong></div>
+      </section>
+      <section class="dashboard-grid">
+        <div class="panel"><h2>Gráfico de Vendas</h2><canvas id="salesChart"></canvas></div>
+        <div class="panel"><h2>Pedidos por Dia</h2><div class="daily-list" id="dailyOrders"></div></div>
+      </section>
+      <section class="panel product-editor" id="produtos"><h2>Editar Produto</h2><div class="editor-grid"><select id="editProductSelect"><option value="">Selecione um produto</option></select><input type="number" id="editProductPrice" placeholder="Novo preço"><input type="file" id="editProductImage"><button class="primary-btn" id="updateProductBtn">Salvar Alterações</button></div></section>
+      <section id="pedidos"><h2>Pedidos Recebidos</h2><div class="table-wrapper"><table><thead><tr><th>ID</th><th>Itens</th><th>Total</th><th>Status</th><th>Data</th></tr></thead><tbody id="ordersTable"><tr><td colspan="5">Carregando pedidos...</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL="https://dkajekepsxbgjzaznfgl.supabase.co";
+    const SUPABASE_KEY="sb_publishable_ph00G7Qw0EOkHF0qZNeRRg_HKycEpfD";
+    const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    let salesChart=null;
+    async function checkLogin(){const{data}=await supabaseClient.auth.getSession();if(!data.session){window.location.href="./login.html"}}
+    checkLogin();
+    function formatPrice(value){return Number(value).toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
+    function formatDate(date){return new Date(date).toLocaleString("pt-BR")}
+    async function loadOrders(){
+      const{data,error}=await supabaseClient.from("orders").select("*").order("created_at",{ascending:false});
+      if(error){console.error(error);document.querySelector("#ordersTable").innerHTML=`<tr><td colspan="5">Erro ao carregar pedidos.</td></tr>`;return}
+      const totalOrders=data.length;
+      const pendingOrders=data.filter(o=>o.status==="Pendente").length;
+      const deliveredOrders=data.filter(o=>o.status==="Entregue").length;
+      const cancelledOrders=data.filter(o=>o.status==="Cancelado").length;
+      const revenue=data.filter(o=>o.status!=="Cancelado").reduce((sum,o)=>sum+Number(o.total),0);
+      const productCount={};
+      data.forEach(order=>{order.items.split("\n").forEach(item=>{const clean=item.replace(/[0-9]./,"").split("-")[0].trim();if(!clean)return;productCount[clean]=(productCount[clean]||0)+1})});
+      let bestSeller="-",highestCount=0;
+      for(const product in productCount){if(productCount[product]>highestCount){highestCount=productCount[product];bestSeller=product}}
+      document.querySelector("#totalOrders").textContent=totalOrders;
+      document.querySelector("#pendingOrders").textContent=pendingOrders;
+      document.querySelector("#deliveredOrders").textContent=deliveredOrders;
+      document.querySelector("#cancelledOrders").textContent=cancelledOrders;
+      document.querySelector("#revenue").textContent=formatPrice(revenue);
+      document.querySelector("#bestSeller").textContent=bestSeller;
+      const dailyOrders={};
+      data.forEach(order=>{const date=new Date(order.created_at).toLocaleDateString("pt-BR");dailyOrders[date]=(dailyOrders[date]||0)+1});
+      document.querySelector("#dailyOrders").innerHTML=Object.entries(dailyOrders).map(([date,total])=>`<p><strong>${date}</strong>: ${total} pedido(s)</p>`).join("");
+      renderSalesChart(data);
+      if(data.length===0){document.querySelector("#ordersTable").innerHTML=`<tr><td colspan="5">Nenhum pedido encontrado.</td></tr>`;return}
+      document.querySelector("#ordersTable").innerHTML=data.map(order=>`<tr><td>${order.id}</td><td>${order.items}</td><td>${formatPrice(order.total)}</td><td><select class="status-select" onchange="updateStatus(${order.id}, this.value)"><option value="Pendente" ${order.status==="Pendente"?"selected":""}>Pendente</option><option value="Preparando" ${order.status==="Preparando"?"selected":""}>Preparando</option><option value="Entregue" ${order.status==="Entregue"?"selected":""}>Entregue</option><option value="Cancelado" ${order.status==="Cancelado"?"selected":""}>Cancelado</option></select></td><td>${formatDate(order.created_at)}</td></tr>`).join("");
+    }
+    async function updateStatus(id,newStatus){const{error}=await supabaseClient.from("orders").update({status:newStatus}).eq("id",id);if(error){console.error(error);alert("Erro ao atualizar status.");return}loadOrders()}
+    function renderSalesChart(orders){
+      const salesByDay={};
+      orders.forEach(order=>{if(order.status==="Cancelado")return;const date=new Date(order.created_at).toLocaleDateString("pt-BR");salesByDay[date]=(salesByDay[date]||0)+Number(order.total)});
+      const labels=Object.keys(salesByDay).reverse(),values=Object.values(salesByDay).reverse();
+      const ctx=document.querySelector("#salesChart");
+      if(salesChart){salesChart.destroy()}
+      salesChart=new Chart(ctx,{type:"line",data:{labels,datasets:[{label:"Faturamento por dia",data:values,borderColor:"#f56600",backgroundColor:"rgba(245,102,0,.16)",pointBackgroundColor:"#f56600",pointBorderColor:"#ffffff",borderWidth:3,tension:.4,fill:true}]},options:{responsive:true,animation:false,plugins:{legend:{display:true}},scales:{y:{beginAtZero:true}}}});
+    }
+    setInterval(()=>{loadOrders()},5000);
+    async function logout(){await supabaseClient.auth.signOut();window.location.href="./login.html"}
+    async function loadProductsEditor(){const{data,error}=await supabaseClient.from("products").select("*");if(error){console.error(error);return}const select=document.querySelector("#editProductSelect");select.innerHTML=`<option value="">Selecione um produto</option>`;data.forEach(product=>{select.innerHTML+=`<option value="${product.id}">${product.name}</option>`})}
+    document.querySelector("#updateProductBtn").addEventListener("click",async()=>{
+      const productId=document.querySelector("#editProductSelect").value;
+      const newPrice=document.querySelector("#editProductPrice").value;
+      const imageFile=document.querySelector("#editProductImage").files[0];
+      if(!productId){alert("Selecione um produto.");return}
+      let updateData={};
+      if(newPrice){updateData.price=Number(newPrice)}
+      if(imageFile){
+        const fileName=`${Date.now()}-${imageFile.name}`;
+        const{error:uploadError}=await supabaseClient.storage.from("product-images").upload(fileName,imageFile);
+        if(uploadError){console.error(uploadError);alert("Erro ao enviar imagem.");return}
+        updateData.image=`https://dkajekepsxbgjzaznfgl.supabase.co/storage/v1/object/public/product-images/${fileName}`;
+      }
+      const{error}=await supabaseClient.from("products").update(updateData).eq("id",productId);
+      if(error){console.error(error);alert("Erro ao atualizar produto.");return}
+      alert("Produto atualizado com sucesso!");location.reload();
+    });
+    loadOrders();loadProductsEditor();
+  </script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
+</body>
+</html>

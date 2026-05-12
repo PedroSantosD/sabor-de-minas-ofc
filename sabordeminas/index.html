@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabor de Minas | Pão de Queijo e Produtos Mineiros</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container navbar">
+      <a class="logo" href="#inicio">
+        <img src="./imagens/sabordeminas.jpeg" alt="Logo Sabor de Minas">
+      </a>
+
+      <nav id="menu">
+        <a href="#inicio" class="active">Início</a>
+        <a href="#historia">História</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#comprar">Como Comprar</a>
+        <a href="#feedbacks">Feedbacks</a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <button class="btn btn-orange open-order">
+        🛒 Ver pedido <span id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container">
+        <div class="hero-content reveal">
+          <h1>O verdadeiro <span class="script">sabor de Minas</span> na sua mesa</h1>
+          <div class="hero-line"></div>
+          <p>Pães de queijo, farofas mineiras, guaraná mineiro e café em grãos moído na hora.</p>
+          <strong>Produtos feitos com carinho e tradição!</strong>
+
+          <div class="hero-actions">
+            <a href="#produtos" class="btn btn-orange">Ver produtos 🛍️</a>
+            <button class="btn btn-outline open-order">Fazer pedido 💬</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="historia">
+      <div class="container story-grid">
+        <div class="story-img reveal">
+          <img src="./imagens/cafepao.jpeg" alt="Mesa com pão de queijo, café e bolo">
+        </div>
+
+        <div class="story-text reveal">
+          <span>Nossa História</span>
+          <h2>Tradição que passa de geração em geração</h2>
+          <p>A Sabor de Minas nasceu do amor pela culinária mineira e do desejo de levar até você o verdadeiro sabor da nossa terra.</p>
+          <p>Selecionamos bons ingredientes e preparamos cada produto com cuidado artesanal, mantendo a tradição. Mais que vender, queremos fazer parte dos seus melhores momentos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="produtos">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>Nossos Produtos</h2>
+          <div class="underline"></div>
+        </div>
+
+        <div class="products-layout">
+          <div class="product-tabs reveal" id="productTabs"></div>
+
+          <div class="product-showcase reveal">
+            <img id="productImage" src="./imagens/pao.jpeg" alt="Produto Sabor de Minas">
+
+            <div class="product-content">
+              <div class="product-tags" id="productTags"></div>
+              <h3 id="productTitle">Pão de Queijo 500g</h3>
+              <p id="productDescription"></p>
+              <div class="product-price" id="productPrice">R$ 24,90</div>
+
+              <div class="coffee-options" id="coffeeOptions">
+                <label>Escolha a gramatura do café:</label>
+
+                <select id="coffeeWeight">
+                  <option value="250g">250g</option>
+                  <option value="500g">500g</option>
+                  <option value="1kg">1kg</option>
+                </select>
+              </div>
+
+              <button class="btn btn-orange" id="productOrderBtn">
+                Adicionar ao pedido 🛒
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="comprar">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>Como Comprar</h2>
+          <div class="underline"></div>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-icon"><b>1</b>🛍️</div>
+            <div>
+              <h3>Escolha o produto</h3>
+              <p>Navegue pelos nossos produtos e selecione o que deseja.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-icon"><b>2</b>⚖️</div>
+            <div>
+              <h3>Escolha a quantidade</h3>
+              <p>Use o carrinho para adicionar ou remover unidades.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-icon"><b>3</b>💬</div>
+            <div>
+              <h3>Entre em contato</h3>
+              <p>Envie seu pedido completo pelo WhatsApp.</p>
+            </div>
+          </div>
+
+          <div class="step reveal">
+            <div class="step-icon"><b>4</b>🚚</div>
+            <div>
+              <h3>Receba ou retire</h3>
+              <p>Entregamos para você ou você pode retirar seu pedido.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedbacks" id="feedbacks">
+      <div class="container">
+        <div class="section-title reveal">
+          <h2>O que nossos clientes dizem</h2>
+          <div class="underline"></div>
+        </div>
+
+        <div class="feedback-shell reveal">
+          <button class="circle-btn" id="prevReview">‹</button>
+
+          <div class="reviews-window">
+            <div class="reviews-track" id="reviewsTrack">
+              <article class="review-card">
+                <div class="review-top">
+                  <div class="avatar">MS</div>
+                  <div>
+                    <h3>Mariana Silva</h3>
+                    <small>Belo Horizonte - MG</small>
+                    <div class="stars">★★★★★</div>
+                  </div>
+                  <div class="quote">“</div>
+                </div>
+                <p>Os pães de queijo são simplesmente maravilhosos! Crocantes por fora e macios por dentro.</p>
+              </article>
+
+              <article class="review-card">
+                <div class="review-top">
+                  <div class="avatar">JP</div>
+                  <div>
+                    <h3>João Pereira</h3>
+                    <small>Contagem - MG</small>
+                    <div class="stars">★★★★★</div>
+                  </div>
+                  <div class="quote">“</div>
+                </div>
+                <p>Compro toda semana! A farofa é sensacional e o café moído na hora faz toda diferença.</p>
+              </article>
+
+              <article class="review-card">
+                <div class="review-top">
+                  <div class="avatar">FR</div>
+                  <div>
+                    <h3>Fernanda Rocha</h3>
+                    <small>Betim - MG</small>
+                    <div class="stars">★★★★★</div>
+                  </div>
+                  <div class="quote">“</div>
+                </div>
+                <p>Produtos de excelente qualidade e atendimento incrível. Recomendo de olhos fechados!</p>
+              </article>
+
+              <article class="review-card">
+                <div class="review-top">
+                  <div class="avatar">LC</div>
+                  <div>
+                    <h3>Lucas Costa</h3>
+                    <small>Sabará - MG</small>
+                    <div class="stars">★★★★★</div>
+                  </div>
+                  <div class="quote">“</div>
+                </div>
+                <p>O biscoito chipa ficou perfeito no lanche. Produto bonito, gostoso e com cara de feito em casa.</p>
+              </article>
+            </div>
+          </div>
+
+          <button class="circle-btn" id="nextReview">›</button>
+        </div>
+
+        <div class="dots" id="dots"></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="order-panel" id="orderPanel">
+    <button class="close-panel" id="closePanel">×</button>
+
+    <h3>Seu pedido</h3>
+    <p>Adicione vários produtos e envie tudo de uma vez pelo WhatsApp.</p>
+    <input type="text" id="clientName" placeholder="Seu nome">
+<input type="text" id="clientAddress" placeholder="Seu endereço">
+
+    <div class="cart-list" id="cartList">
+      <p class="empty-cart">Nenhum produto adicionado ainda.</p>
+    </div>
+
+    <div class="cart-total">
+      <span>Subtotal</span>
+      <strong id="cartSubtotal">R$ 0,00</strong>
+    </div>
+
+    <button class="btn btn-orange" id="sendOrder" style="width:100%;">
+      Enviar pedido pelo WhatsApp
+    </button>
+
+    <button class="clear-cart" id="clearCart">Limpar pedido</button>
+  </aside>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-logo">
+        <img src="./imagens/sabordeminas.jpeg" alt="Logo Sabor de Minas">
+        <p>Levando o verdadeiro sabor de Minas até a sua mesa com qualidade, carinho e tradição.</p>
+      </div>
+
+      <div>
+        <h3>Links Rápidos</h3>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#historia">História</a></li>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#comprar">Como Comprar</a></li>
+          <li><a href="#feedbacks">Feedbacks</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Fale Conosco</h3>
+        <p>💬 (83) 98710-9484</p>
+        <p>
+          <a href="https://www.instagram.com/cesar.sabordeminas/" target="_blank">
+            📷 @cesar.sabordeminas
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <h3>Formas de pagamento</h3>
+        <div class="payments">
+          <span class="pay">Pix</span>
+          <span class="pay">VISA</span>
+          <span class="pay">Master</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copy">
+      <span>© 2024 Sabor de Minas - Todos os direitos reservados</span>
+      <span>Feito com carinho e tradição mineira 🤍</span>
+    </div>
+  </footer>
+
+  <button class="floating-cart open-order" id="floatingCart">
+    🛒
+    <span id="floatingCartCount">0</span>
+  </button>
+
+  <div class="toast" id="toast">
+    Produto adicionado ao pedido ✅
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
