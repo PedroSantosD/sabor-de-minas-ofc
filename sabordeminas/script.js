@@ -163,9 +163,9 @@ function updateCart() {
       </div>
 
       <div class="cart-actions">
-        <button onclick="decreaseItem(${item.id})">−</button>
-        <button onclick="increaseItem(${item.id})">+</button>
-        <button onclick="removeFromCart(${item.id})">×</button>
+        <button data-action="decrease" data-id="${item.id}" aria-label="Diminuir quantidade de ${item.name}">−</button>
+        <button data-action="increase" data-id="${item.id}" aria-label="Aumentar quantidade de ${item.name}">+</button>
+        <button data-action="remove" data-id="${item.id}" aria-label="Remover ${item.name}">×</button>
       </div>
     </div>
   `).join("");
@@ -216,7 +216,7 @@ function showToast() {
 
   setTimeout(() => {
     toast.classList.remove("show");
-  }, 1800);
+  }, 3000);
 }
 
 productOrderBtn.addEventListener("click", () => {
@@ -230,9 +230,48 @@ clearCart.addEventListener("click", () => {
   saveCart();
 });
 
-document.querySelector("#menuBtn").addEventListener("click", () => {
-  document.querySelector("#menu").classList.toggle("open");
+// Cart event delegation
+cartList.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-action]");
+  if (!btn) return;
+  const id = Number(btn.dataset.id);
+  const action = btn.dataset.action;
+  if (action === "decrease") decreaseItem(id);
+  else if (action === "increase") increaseItem(id);
+  else if (action === "remove") removeFromCart(id);
 });
+
+// Mobile menu
+const menuBtn = document.querySelector("#menuBtn");
+const menuNav = document.querySelector("#menu");
+menuBtn.addEventListener("click", () => {
+  const isOpen = menuNav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", isOpen);
+  menuBtn.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+});
+
+// Close menu on nav link click
+menuNav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    menuNav.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Abrir menu");
+  });
+});
+
+// Active nav on scroll
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll("nav a");
+const observerNav = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+sections.forEach(s => observerNav.observe(s));
 
 document.querySelectorAll(".open-order").forEach(btn => {
   btn.addEventListener("click", () => {

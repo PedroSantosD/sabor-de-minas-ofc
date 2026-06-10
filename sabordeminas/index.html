@@ -8,28 +8,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <meta name="description" content="Pão de queijo artesanal, farofas mineiras, guaraná e café em grãos. Produtos feitos com carinho e tradição de Minas Gerais.">
 
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
+  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+
   <header>
     <div class="container navbar">
       <a class="logo" href="#inicio">
         <img src="./imagens/sabordeminas.jpeg" alt="Logo Sabor de Minas">
       </a>
 
-      <nav id="menu">
-        <a href="#inicio" class="active">Início</a>
+      <nav id="menu" role="navigation" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
         <a href="#historia">História</a>
         <a href="#produtos">Produtos</a>
         <a href="#comprar">Como Comprar</a>
         <a href="#feedbacks">Feedbacks</a>
       </nav>
 
-      <button class="menu-btn" id="menuBtn">☰</button>
-      <button class="btn btn-orange open-order">
-        🛒 Ver pedido <span id="cartCount">0</span>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">☰</button>
+      <button class="btn btn-orange open-order" aria-label="Ver pedido">
+        🛒 Ver pedido <span id="cartCount" aria-live="polite">0</span>
       </button>
     </div>
   </header>
@@ -54,7 +57,7 @@
     <section class="story" id="historia">
       <div class="container story-grid">
         <div class="story-img reveal">
-          <img src="./imagens/cafepao.jpeg" alt="Mesa com pão de queijo, café e bolo">
+          <img src="./imagens/cafepao.jpeg" alt="Mesa com pão de queijo, café e bolo" loading="lazy" width="560" height="340">
         </div>
 
         <div class="story-text reveal">
@@ -155,7 +158,7 @@
         </div>
 
         <div class="feedback-shell reveal">
-          <button class="circle-btn" id="prevReview">‹</button>
+          <button class="circle-btn" id="prevReview" aria-label="Avaliação anterior">‹</button>
 
           <div class="reviews-window">
             <div class="reviews-track" id="reviewsTrack">
@@ -213,7 +216,7 @@
             </div>
           </div>
 
-          <button class="circle-btn" id="nextReview">›</button>
+          <button class="circle-btn" id="nextReview" aria-label="Próxima avaliação">›</button>
         </div>
 
         <div class="dots" id="dots"></div>
@@ -222,12 +225,19 @@
   </main>
 
   <aside class="order-panel" id="orderPanel">
-    <button class="close-panel" id="closePanel">×</button>
+    <button class="close-panel" id="closePanel" aria-label="Fechar painel do pedido">×</button>
 
     <h3>Seu pedido</h3>
     <p>Adicione vários produtos e envie tudo de uma vez pelo WhatsApp.</p>
-    <input type="text" id="clientName" placeholder="Seu nome">
-<input type="text" id="clientAddress" placeholder="Seu endereço">
+
+    <div class="order-field">
+      <label for="clientName">Seu nome</label>
+      <input type="text" id="clientName" placeholder="Ex: João Silva" autocomplete="name">
+    </div>
+    <div class="order-field">
+      <label for="clientAddress">Endereço de entrega</label>
+      <input type="text" id="clientAddress" placeholder="Rua, número, bairro..." autocomplete="street-address">
+    </div>
 
     <div class="cart-list" id="cartList">
       <p class="empty-cart">Nenhum produto adicionado ainda.</p>
@@ -289,12 +299,12 @@
     </div>
   </footer>
 
-  <button class="floating-cart open-order" id="floatingCart">
+  <button class="floating-cart open-order" id="floatingCart" aria-label="Abrir carrinho">
     🛒
-    <span id="floatingCartCount">0</span>
+    <span id="floatingCartCount" aria-live="polite">0</span>
   </button>
 
-  <div class="toast" id="toast">
+  <div class="toast" id="toast" role="status" aria-live="polite">
     Produto adicionado ao pedido ✅
   </div>
 
